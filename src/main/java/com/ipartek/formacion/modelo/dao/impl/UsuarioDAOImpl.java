@@ -1,6 +1,7 @@
 package com.ipartek.formacion.modelo.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	static final String SQL_EXISTE            = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre = ? AND contrasenia = ? ; ";
 
 	// executeUpdate => int
-	static final String SQL_INSERT = " INSERT INTO usuario(nombre, contrasenia, id_rol) VALUES( ? , ? , ? ); ";
+	static final String SQL_INSERT = " INSERT INTO usuario(nombre, contrasenia, id_rol,fecha_nacimiento) VALUES( ? ,MD5(?) , ?, ? ); ";
 	static final String SQL_DELETE = " DELETE FROM usuario WHERE id = ? ;";
 	static final String SQL_UPDATE = " UPDATE usuario SET nombre = ?, contrasenia = ? , id_rol = ? WHERE id = ? ; ";
 
@@ -121,6 +122,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			pst.setString(1, pojo.getNombre() );
 			pst.setString(2, pojo.getContrasenia() );
 			pst.setInt(3, pojo.getRol().getId() );
+			pst.setDate(4,new Date(pojo.getFechaNacimiento().getTime()));
+			
 			
 			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();

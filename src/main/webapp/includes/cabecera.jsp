@@ -62,6 +62,9 @@
             <li class="nav-item"  >
               <a class="nav-link ${ ( 'ejemplos' eq param.pagina ) ? 'active' : '' }" href="views/ejemplos/index.jsp">Ejemplos</a>
             </li>
+            <li class="nav-item"  >
+              <a class="nav-link ${ ( 'registro' eq param.pagina ) ? 'active' : '' }" href="views/usuarios/registro.jsp">Registro nuevo usuario</a>
+            </li>
             
             <!-- opciones cuando el usuario esta Logeado -->
             

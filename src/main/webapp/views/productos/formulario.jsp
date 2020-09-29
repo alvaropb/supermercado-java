@@ -14,7 +14,7 @@
 	<div class="row pb-4">
 	
 		<div class="col">
-				<form action="producto" method="post">
+				<form action="producto" method="post" enctype="multipart/form-data">
 			
 				<div class="form-group">
 					<label for="id">id:</label>
@@ -31,9 +31,10 @@
 					<input type="text" name="precio" id="precio" value="${producto.precio}" class="form-control" placeholder="0.0 €" >
 				</div>
 				
+
 				<div class="form-group">
-					<label for="imagen">Imagen:</label>
-					<input type="text" name="imagen" id="imagen" value="${producto.imagen}" class="form-control" placeholder="URL de la imagen (.jpg o .png)" >
+					<label for="fichero">fichero:</label>
+					<input type="file" name="fichero" id="fichero" " class="form-control" placeholder="Seleccione una imagen (.jpg o .png)" >
 				</div>
 				
 				<div class="form-group">

@@ -1,11 +1,14 @@
 package com.ipartek.formacion.modelo.pojo;
 
+import java.util.Date;
+
 public class Usuario {
 	
 	private int id;
 	private String nombre;
 	private String contrasenia;	
 	private Rol rol;
+	private Date fechaNacimiento;
 	
 	public Usuario() {
 		super();
@@ -13,6 +16,7 @@ public class Usuario {
 		this.nombre = "";
 		this.contrasenia = "";
 		this.rol = new Rol();
+		this.fechaNacimiento=new Date();
 	}
 
 	public int getId() {
@@ -47,10 +51,21 @@ public class Usuario {
 		this.rol = rol;
 	}
 
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasenia=" + contrasenia + ", rol=" + rol + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasenia=" + contrasenia + ", rol=" + rol
+				+ ", fechaNacimiento=" + fechaNacimiento + "]";
 	}
+
+	
 
 	
 

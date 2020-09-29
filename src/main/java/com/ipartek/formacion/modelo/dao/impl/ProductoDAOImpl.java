@@ -1,5 +1,6 @@
 package com.ipartek.formacion.modelo.dao.impl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,12 +43,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 	private final String SQL_GET_LAST = SELECT_CAMPOS + FROM_INNER_JOIN + " AND fecha_validado IS NOT NULL " + " ORDER BY p.id DESC LIMIT ? ; ";
 
-	private final String SQL_GET_BY_CATEGORIA = SELECT_CAMPOS + FROM_INNER_JOIN + "AND fecha_validado IS NOT NULL " + " AND c.id = ? " + // filtramos por el
-																									// id de la
-																									// categoria
-			" ORDER BY p.id DESC LIMIT ? ; ";
-
-	
+	private final String SQL_PA_GET_BY_CATEGORIA = "{CALL pa_producto_por_categoria(?,?)}";
 
 	private final String SQL_GET_BY_USUARIO_PRODUCTO_VALIDADO = SELECT_CAMPOS + FROM_INNER_JOIN + " AND fecha_validado IS NOT NULL AND p.id_usuario = ? \n"
 			+ "ORDER BY p.id DESC LIMIT 500; ";
@@ -156,11 +152,11 @@ public class ProductoDAOImpl implements ProductoDAO {
 	public ArrayList<Producto> getAllByCategoria(int idCategoria, int numReg) {
 		ArrayList<Producto> registros = new ArrayList<Producto>();
 		try (Connection conexion = ConnectionManager.getConnection();
-				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_CATEGORIA);) {
-			pst.setInt(1, idCategoria);
-			pst.setInt(2, numReg);
-			LOG.debug(pst);
-			try (ResultSet rs = pst.executeQuery()) {
+			CallableStatement cs= conexion.prepareCall(SQL_PA_GET_BY_CATEGORIA);) {
+			cs.setInt(1, idCategoria);
+			cs.setInt(2, numReg);
+			LOG.debug(cs);
+			try (ResultSet rs = cs.executeQuery()) {
 				while (rs.next()) {
 					registros.add(mapper(rs));
 				}
